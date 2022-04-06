@@ -1,0 +1,14 @@
+---
+- name: Kubectl | Install kubectl v{{ kubectl_version }}
+  ansible.builtin.get_url:
+    url: "https://dl.k8s.io/release/v{{ kubectl_version }}/bin/linux/amd64/kubectl"
+    dest: /usr/local/bin/kubectl
+    force: yes
+    validate_certs: yes
+    mode: 0755
+  tags: kubectl
+
+- name: Kubectl | Kubectl command-line completion
+  ansible.builtin.shell:
+    cmd: /usr/local/bin/kubectl completion bash > /etc/bash_completion.d/kubectl
+  tags: kubectl
